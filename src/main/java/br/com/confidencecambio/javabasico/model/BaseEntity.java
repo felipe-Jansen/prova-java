@@ -14,6 +14,10 @@ public class BaseEntity {
         return name;
     }
 
+    private String[] getNameSplited() {
+        return this.name.split(" ");
+    }
+
     private String deleteEmptySpaces(String name) {
         return Arrays.stream(name.split("\\s"))
                 .filter(StringUtils::hasText)
@@ -28,32 +32,32 @@ public class BaseEntity {
     }
 
     public String getNameCapitalized() {
-        return Arrays.stream(this.name.split(" "))
+        return Arrays.stream(getNameSplited())
                 .map(StringUtils::capitalize)
                 .collect(Collectors.joining(" "));
     }
 
     public String getNameUppercase() {
-        return Arrays.stream(this.name.split(" "))
+        return Arrays.stream(getNameSplited())
                 .map(String::toUpperCase)
                 .collect(Collectors.joining(" "));
 
     }
 
     public String getFirstName() {
-        return Arrays.stream(this.name.split(" "))
+        return Arrays.stream(getNameSplited())
                 .findFirst()
                 .orElse(null);
     }
 
     public String getLastName() {
-        return Arrays.stream(this.name.split(" "))
+        return Arrays.stream(getNameSplited())
                 .skip(1)
                 .collect(Collectors.joining(" "));
     }
 
     public String getAbbreviatedName() {
-        String[] nomeList = this.name.split(" ");
+        String[] nomeList = getNameSplited();
         StringBuilder nomeAbreviado = new StringBuilder();
         int indexOfLastName = nomeList.length - 1;
 
